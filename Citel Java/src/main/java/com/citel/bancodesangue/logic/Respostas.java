@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +25,28 @@ public class Respostas {
         }
 
         return quantidadeEstados;
+    }
+
+    public void imcMedio(List<BancoDeSangue> candidatos){
+        Map<String, Integer> imcMedio = Map.of(
+                "ate10", 0,
+                "ate20", 0,
+                "ate30", 0,
+                "ate40", 0,
+                "ate50", 0,
+                "ate60", 0,
+                "ate70", 0,
+                "ate80", 0,
+                "ate90", 0,
+                "ate100", 0
+        );
+
+        for (BancoDeSangue c : candidatos){
+
+        }
 
     }
+
 
 
 }
