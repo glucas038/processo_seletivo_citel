@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
@@ -19,13 +21,15 @@ public class BancoDeSangue {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotEmpty
+    private String nome;
     @Column(unique = true, nullable = false)
     @CPF
     private String cpf;
     @NotEmpty
     private String rg;
     @NotEmpty
-    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
     private String data_nasc;
     @NotEmpty
     private String sexo;
@@ -34,7 +38,7 @@ public class BancoDeSangue {
     @NotEmpty
     private String pai;
     @NotEmpty
-    @Email
+    //@Email
     private String email;
     @NotEmpty
     private String cep;
