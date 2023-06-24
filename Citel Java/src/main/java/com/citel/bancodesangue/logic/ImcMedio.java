@@ -35,16 +35,16 @@ public class ImcMedio {
         iniciarMapsEVariaveis();
         conferirIdades(candidatos);
 
-        imcMedio.put("ate10", quantidadeImcPorIdade.get("ate10")/quantidadePorIdade.get("ate10"));
-        imcMedio.put("ate20", quantidadeImcPorIdade.get("ate20")/quantidadePorIdade.get("ate20"));
-        imcMedio.put("ate30", quantidadeImcPorIdade.get("ate30")/quantidadePorIdade.get("ate30"));
-        imcMedio.put("ate40", quantidadeImcPorIdade.get("ate40")/quantidadePorIdade.get("ate40"));
-        imcMedio.put("ate50", quantidadeImcPorIdade.get("ate50")/quantidadePorIdade.get("ate50"));
-        imcMedio.put("ate60", quantidadeImcPorIdade.get("ate60")/quantidadePorIdade.get("ate60"));
-        imcMedio.put("ate70", quantidadeImcPorIdade.get("ate70")/quantidadePorIdade.get("ate70"));
-        imcMedio.put("ate80", quantidadeImcPorIdade.get("ate80")/quantidadePorIdade.get("ate80"));
-        imcMedio.put("ate90", quantidadeImcPorIdade.get("ate90")/quantidadePorIdade.get("ate90"));
-        imcMedio.put("ate100", quantidadeImcPorIdade.get("ate100")/quantidadePorIdade.get("ate100"));
+        imcMedio.put("01 - 10", quantidadeImcPorIdade.get("01 - 10")/quantidadePorIdade.get("01 - 10"));
+        imcMedio.put("11 - 20", quantidadeImcPorIdade.get("11 - 20")/quantidadePorIdade.get("11 - 20"));
+        imcMedio.put("21 - 30", quantidadeImcPorIdade.get("21 - 30")/quantidadePorIdade.get("21 - 30"));
+        imcMedio.put("31 - 40", quantidadeImcPorIdade.get("31 - 40")/quantidadePorIdade.get("31 - 40"));
+        imcMedio.put("41 - 50", quantidadeImcPorIdade.get("41 - 50")/quantidadePorIdade.get("41 - 50"));
+        imcMedio.put("51 - 60", quantidadeImcPorIdade.get("51 - 60")/quantidadePorIdade.get("51 - 60"));
+        imcMedio.put("61 - 70", quantidadeImcPorIdade.get("61 - 70")/quantidadePorIdade.get("61 - 70"));
+        imcMedio.put("71 - 80", quantidadeImcPorIdade.get("71 - 80")/quantidadePorIdade.get("71 - 80"));
+        imcMedio.put("81 - 90", quantidadeImcPorIdade.get("81 - 90")/quantidadePorIdade.get("81 - 90"));
+        imcMedio.put("91 - 100", quantidadeImcPorIdade.get("91 - 100")/quantidadePorIdade.get("91 - 100"));
 
         percentualHomem = (quantidadeHomemObeso/quantidadeHomem) * 100;
         percentualMulher = (quantidadeMulherObesa/quantidadeMulher) * 100;
@@ -62,8 +62,8 @@ public class ImcMedio {
     }
 
     private void iniciarMapsEVariaveis() {
-        String[] faixasEtarias = {"ate10", "ate20", "ate30", "ate40", "ate50",
-                "ate60", "ate70", "ate80", "ate90", "ate100"};
+        String[] faixasEtarias = {"01 - 10", "11 - 20", "21 - 30", "31 - 40", "41 - 50",
+                "51 - 60", "61 - 70", "71 - 80", "81 - 90", "91 - 100"};
         for (String faixaEtaria : faixasEtarias) {
             imcMedio.put(faixaEtaria, 0f);
             quantidadePorIdade.put(faixaEtaria, 0);
@@ -77,6 +77,9 @@ public class ImcMedio {
     }
 
     private void conferirIdades(List<BancoDeSangue> candidatos){
+        String[] faixasEtarias = {"01 - 10", "11 - 20", "21 - 30", "31 - 40", "41 - 50",
+                "51 - 60", "61 - 70", "71 - 80", "81 - 90", "91 - 100"};
+
         for (BancoDeSangue c: candidatos){
             int idade = calculaIdade(c.getData_nasc());
             float imc = calculaImc(c);
@@ -84,35 +87,35 @@ public class ImcMedio {
             obesidadePercentualSexo(c, imc);
 
             if (idade <= 10) {
-                quantidadePorIdade.put("ate10", quantidadePorIdade.get("ate10") + 1);
-                quantidadeImcPorIdade.put("ate10", quantidadeImcPorIdade.get("ate10") + imc);
+                quantidadePorIdade.put(faixasEtarias[0], quantidadePorIdade.get(faixasEtarias[0]) + 1);
+                quantidadeImcPorIdade.put(faixasEtarias[0], quantidadeImcPorIdade.get(faixasEtarias[0]) + imc);
             } else if (idade <= 20) {
-                quantidadePorIdade.put("ate20", quantidadePorIdade.get("ate20") + 1);
-                quantidadeImcPorIdade.put("ate20", quantidadeImcPorIdade.get("ate20") + imc);
+                quantidadePorIdade.put(faixasEtarias[1], quantidadePorIdade.get(faixasEtarias[1]) + 1);
+                quantidadeImcPorIdade.put(faixasEtarias[1], quantidadeImcPorIdade.get(faixasEtarias[1]) + imc);
             } else if (idade <= 30) {
-                quantidadePorIdade.put("ate30", quantidadePorIdade.get("ate30") + 1);
-                quantidadeImcPorIdade.put("ate30", quantidadeImcPorIdade.get("ate30") + imc);
+                quantidadePorIdade.put(faixasEtarias[2], quantidadePorIdade.get(faixasEtarias[2]) + 1);
+                quantidadeImcPorIdade.put(faixasEtarias[2], quantidadeImcPorIdade.get(faixasEtarias[2]) + imc);
             } else if (idade <= 40) {
-                quantidadePorIdade.put("ate40", quantidadePorIdade.get("ate40") + 1);
-                quantidadeImcPorIdade.put("ate40", quantidadeImcPorIdade.get("ate40") + imc);
+                quantidadePorIdade.put(faixasEtarias[3], quantidadePorIdade.get(faixasEtarias[3]) + 1);
+                quantidadeImcPorIdade.put(faixasEtarias[3], quantidadeImcPorIdade.get(faixasEtarias[3]) + imc);
             } else if (idade <= 50) {
-                quantidadePorIdade.put("ate50", quantidadePorIdade.get("ate50") + 1);
-                quantidadeImcPorIdade.put("ate50", quantidadeImcPorIdade.get("ate50") + imc);
+                quantidadePorIdade.put(faixasEtarias[4], quantidadePorIdade.get(faixasEtarias[4]) + 1);
+                quantidadeImcPorIdade.put(faixasEtarias[4], quantidadeImcPorIdade.get(faixasEtarias[4]) + imc);
             } else if (idade <= 60) {
-                quantidadePorIdade.put("ate60", quantidadePorIdade.get("ate60") + 1);
-                quantidadeImcPorIdade.put("ate60", quantidadeImcPorIdade.get("ate60") + imc);
+                quantidadePorIdade.put(faixasEtarias[5], quantidadePorIdade.get(faixasEtarias[5]) + 1);
+                quantidadeImcPorIdade.put(faixasEtarias[5], quantidadeImcPorIdade.get(faixasEtarias[5]) + imc);
             } else if (idade <= 70) {
-                quantidadePorIdade.put("ate70", quantidadePorIdade.get("ate70") + 1);
-                quantidadeImcPorIdade.put("ate70", quantidadeImcPorIdade.get("ate70") + imc);
+                quantidadePorIdade.put(faixasEtarias[6], quantidadePorIdade.get(faixasEtarias[6]) + 1);
+                quantidadeImcPorIdade.put(faixasEtarias[6], quantidadeImcPorIdade.get(faixasEtarias[6]) + imc);
             } else if (idade <= 80) {
-                quantidadePorIdade.put("ate80", quantidadePorIdade.get("ate80") + 1);
-                quantidadeImcPorIdade.put("ate80", quantidadeImcPorIdade.get("ate80") + imc);
+                quantidadePorIdade.put(faixasEtarias[7], quantidadePorIdade.get(faixasEtarias[7]) + 1);
+                quantidadeImcPorIdade.put(faixasEtarias[7], quantidadeImcPorIdade.get(faixasEtarias[7]) + imc);
             } else if (idade <= 90) {
-                quantidadePorIdade.put("ate90", quantidadePorIdade.get("ate90") + 1);
-                quantidadeImcPorIdade.put("ate90", quantidadeImcPorIdade.get("ate90") + imc);
+                quantidadePorIdade.put(faixasEtarias[8], quantidadePorIdade.get(faixasEtarias[8]) + 1);
+                quantidadeImcPorIdade.put(faixasEtarias[8], quantidadeImcPorIdade.get(faixasEtarias[8]) + imc);
             } else {
-                quantidadePorIdade.put("ate100", quantidadePorIdade.get("ate100") + 1);
-                quantidadeImcPorIdade.put("ate100", quantidadeImcPorIdade.get("ate100") + imc);
+                quantidadePorIdade.put(faixasEtarias[9], quantidadePorIdade.get(faixasEtarias[9]) + 1);
+                quantidadeImcPorIdade.put(faixasEtarias[9], quantidadeImcPorIdade.get(faixasEtarias[9]) + imc);
             }
 
         }

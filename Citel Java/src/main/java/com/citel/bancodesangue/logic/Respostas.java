@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 @Component
 public class Respostas {
@@ -35,7 +36,15 @@ public class Respostas {
 
     public Map<String, Float> imcMedio(List<BancoDeSangue> candidatos){
         System.out.println(imcMedio.mediaDeImc(candidatos));
-        return imcMedio.mediaDeImc(candidatos);
+        Map<String, Float> map = imcMedio.mediaDeImc(candidatos);
+        Map<String, Float> sortedMap = new TreeMap<>(map);
+
+        for (Map.Entry<String,Float> entry : sortedMap.entrySet()){
+            System.out.println(entry.getKey());
+        }
+
+        return sortedMap;
+        //return imcMedio.mediaDeImc(candidatos);
     }
 
     public Map<String, Float> percentualObesidadePorSexo(List<BancoDeSangue> candidatos){
