@@ -1,5 +1,6 @@
 package com.citel.bancodesangue.controller;
 
+import com.citel.bancodesangue.dtos.BancoDeSangueResponseDTO;
 import com.citel.bancodesangue.entity.BancoDeSangue;
 import com.citel.bancodesangue.service.BancoDeSangueService;
 import jakarta.validation.Valid;
@@ -20,9 +21,10 @@ public class BancoDeSangueController {
     private BancoDeSangueService bancoDeSangueService;
 
     @GetMapping
-    public ResponseEntity<Optional<List<BancoDeSangue>>> retornarTodosDoadores(){
-
-        return  ResponseEntity.status(HttpStatus.OK).body(bancoDeSangueService.retornarTodosClientes());
+    public ResponseEntity<Optional<List<BancoDeSangueResponseDTO>>> retornarTodosDoadores(){
+        Optional<List<BancoDeSangue>> candidatos = bancoDeSangueService.retornarTodosClientes();
+        return  ResponseEntity.status(HttpStatus.OK).
+                body(Optional.of(BancoDeSangueResponseDTO.convertListToDTO(candidatos.get())));
 
     }
 
