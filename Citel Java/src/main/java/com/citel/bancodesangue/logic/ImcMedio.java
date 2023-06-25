@@ -3,11 +3,14 @@ package com.citel.bancodesangue.logic;
 import com.citel.bancodesangue.entity.BancoDeSangue;
 import org.springframework.stereotype.Component;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 @Component
@@ -16,141 +19,109 @@ public class ImcMedio {
     private Map<String, Float> imcMedio;
     private Map<String, Integer> quantidadePorIdade;
     private Map<String, Float> quantidadeImcPorIdade;
-    private float quantidadeMulher;
-    private float quantidadeMulherObesa;
-    private float percentualMulher;
-    private float quantidadeHomem;
-    private float quantidadeHomemObeso;
-    private float percentualHomem;
+    private int quantidadeMulheres;
+    private int quantidadeMulheresObesas;
+    private float percentualMulheres;
+    private int quantidadeHomens;
+    private int quantidadeHomensObesos;
+    private float percentualHomens;
+    private String[] faixasEtarias = {"01 - 10", "11 - 20", "21 - 30", "31 - 40", "41 - 50",
+            "51 - 60", "61 - 70", "71 - 80", "81 - 90", "91 - 100"};
 
-
-
-    public ImcMedio(Map<String, Integer> imcMedio) {
-        this.imcMedio = new HashMap<>();
-        this.quantidadePorIdade = new HashMap<>();
-        this.quantidadeImcPorIdade = new HashMap<>();
+    public ImcMedio() {
+        imcMedio = new HashMap<>();
+        quantidadePorIdade = new HashMap<>();
+        quantidadeImcPorIdade = new HashMap<>();
+        quantidadeMulheres = 0;
+        quantidadeMulheresObesas = 0;
+        quantidadeHomens = 0;
+        quantidadeHomensObesos = 0;
     }
 
-    public Map<String, Float> mediaDeImc(List<BancoDeSangue> candidatos) {
-        iniciarMapsEVariaveis();
+    public Map<String, Float> calcularMediaImc(List<BancoDeSangue> candidatos) {
+        inicializarMapasEVariaveis();
         conferirIdades(candidatos);
+        calcularImcMedio();
 
-        imcMedio.put("ate10", quantidadeImcPorIdade.get("ate10")/quantidadePorIdade.get("ate10"));
-        imcMedio.put("ate20", quantidadeImcPorIdade.get("ate20")/quantidadePorIdade.get("ate20"));
-        imcMedio.put("ate30", quantidadeImcPorIdade.get("ate30")/quantidadePorIdade.get("ate30"));
-        imcMedio.put("ate40", quantidadeImcPorIdade.get("ate40")/quantidadePorIdade.get("ate40"));
-        imcMedio.put("ate50", quantidadeImcPorIdade.get("ate50")/quantidadePorIdade.get("ate50"));
-        imcMedio.put("ate60", quantidadeImcPorIdade.get("ate60")/quantidadePorIdade.get("ate60"));
-        imcMedio.put("ate70", quantidadeImcPorIdade.get("ate70")/quantidadePorIdade.get("ate70"));
-        imcMedio.put("ate80", quantidadeImcPorIdade.get("ate80")/quantidadePorIdade.get("ate80"));
-        imcMedio.put("ate90", quantidadeImcPorIdade.get("ate90")/quantidadePorIdade.get("ate90"));
-        imcMedio.put("ate100", quantidadeImcPorIdade.get("ate100")/quantidadePorIdade.get("ate100"));
-
-        percentualHomem = (quantidadeHomemObeso/quantidadeHomem) * 100;
-        percentualMulher = (quantidadeMulherObesa/quantidadeMulher) * 100;
-        System.out.println(quantidadeHomemObeso);
-
-        return imcMedio;
+        return new HashMap<>(imcMedio);
     }
 
-    public float getPercentualMulher() {
-        return percentualMulher;
+    public float getPercentualMulheres() {
+        return percentualMulheres;
     }
 
-    public float getPercentualHomem() {
-        return percentualHomem;
+    public float getPercentualHomens() {
+        return percentualHomens;
     }
 
-    private void iniciarMapsEVariaveis() {
-        String[] faixasEtarias = {"ate10", "ate20", "ate30", "ate40", "ate50",
-                "ate60", "ate70", "ate80", "ate90", "ate100"};
+    private void inicializarMapasEVariaveis() {
+
         for (String faixaEtaria : faixasEtarias) {
             imcMedio.put(faixaEtaria, 0f);
             quantidadePorIdade.put(faixaEtaria, 0);
             quantidadeImcPorIdade.put(faixaEtaria, 0f);
         }
-
-        this.quantidadeMulher = 0;
-        this.quantidadeMulherObesa = 0;
-        this.quantidadeHomem = 0;
-        this.quantidadeHomemObeso = 0;
     }
 
-    private void conferirIdades(List<BancoDeSangue> candidatos){
-        for (BancoDeSangue c: candidatos){
-            int idade = calculaIdade(c.getData_nasc());
-            float imc = calculaImc(c);
+    private void conferirIdades(List<BancoDeSangue> candidatos) {
 
-            obesidadePercentualSexo(c, imc);
+        for (BancoDeSangue candidato : candidatos) {
+            int idade = calcularIdade(candidato.getData_nasc());
+            float imc = calcularImc(candidato);
 
-            if (idade <= 10) {
-                quantidadePorIdade.put("ate10", quantidadePorIdade.get("ate10") + 1);
-                quantidadeImcPorIdade.put("ate10", quantidadeImcPorIdade.get("ate10") + imc);
-            } else if (idade <= 20) {
-                quantidadePorIdade.put("ate20", quantidadePorIdade.get("ate20") + 1);
-                quantidadeImcPorIdade.put("ate20", quantidadeImcPorIdade.get("ate20") + imc);
-            } else if (idade <= 30) {
-                quantidadePorIdade.put("ate30", quantidadePorIdade.get("ate30") + 1);
-                quantidadeImcPorIdade.put("ate30", quantidadeImcPorIdade.get("ate30") + imc);
-            } else if (idade <= 40) {
-                quantidadePorIdade.put("ate40", quantidadePorIdade.get("ate40") + 1);
-                quantidadeImcPorIdade.put("ate40", quantidadeImcPorIdade.get("ate40") + imc);
-            } else if (idade <= 50) {
-                quantidadePorIdade.put("ate50", quantidadePorIdade.get("ate50") + 1);
-                quantidadeImcPorIdade.put("ate50", quantidadeImcPorIdade.get("ate50") + imc);
-            } else if (idade <= 60) {
-                quantidadePorIdade.put("ate60", quantidadePorIdade.get("ate60") + 1);
-                quantidadeImcPorIdade.put("ate60", quantidadeImcPorIdade.get("ate60") + imc);
-            } else if (idade <= 70) {
-                quantidadePorIdade.put("ate70", quantidadePorIdade.get("ate70") + 1);
-                quantidadeImcPorIdade.put("ate70", quantidadeImcPorIdade.get("ate70") + imc);
-            } else if (idade <= 80) {
-                quantidadePorIdade.put("ate80", quantidadePorIdade.get("ate80") + 1);
-                quantidadeImcPorIdade.put("ate80", quantidadeImcPorIdade.get("ate80") + imc);
-            } else if (idade <= 90) {
-                quantidadePorIdade.put("ate90", quantidadePorIdade.get("ate90") + 1);
-                quantidadeImcPorIdade.put("ate90", quantidadeImcPorIdade.get("ate90") + imc);
-            } else {
-                quantidadePorIdade.put("ate100", quantidadePorIdade.get("ate100") + 1);
-                quantidadeImcPorIdade.put("ate100", quantidadeImcPorIdade.get("ate100") + imc);
+            conferirObesidadeEGenero(candidato, imc);
+
+            for (int i = 0; i < faixasEtarias.length; i++) {
+                if (idade <= (i + 1) * 10) {
+                    String faixaEtaria = faixasEtarias[i];
+                    quantidadePorIdade.put(faixaEtaria, quantidadePorIdade.get(faixaEtaria) + 1);
+                    quantidadeImcPorIdade.put(faixaEtaria, quantidadeImcPorIdade.get(faixaEtaria) + imc);
+                    break;
+                }
             }
-
         }
-
     }
 
-    private int calculaIdade(String dataString){
-
+    private int calcularIdade(String dataString) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate localDate = LocalDate.parse(dataString, format);
-
-        LocalDate dataNasc = LocalDate.of(localDate.getYear(), localDate.getMonth(), localDate.getDayOfMonth());
-        int ano = dataNasc.getYear();
-        int mes = dataNasc.getMonth().getValue();
-        int dia = dataNasc.getDayOfMonth();
-
-        return (int) ChronoUnit.YEARS.between(LocalDate.of(ano,mes,dia), LocalDate.now());
-
+        LocalDate dataNasc = LocalDate.parse(dataString, format);
+        return (int) ChronoUnit.YEARS.between(dataNasc, LocalDate.now());
     }
 
-    private float calculaImc(BancoDeSangue candidato){
-        float imc = candidato.getPeso()/(candidato.getAltura() * candidato.getAltura());
-        return imc;
+    private float calcularImc(BancoDeSangue candidato) {
+        return candidato.getPeso() / (candidato.getAltura() * candidato.getAltura());
     }
 
-    private void obesidadePercentualSexo(BancoDeSangue candidato, float imc){
-        if (candidato.getSexo().equals("Feminino")){
-            quantidadeMulher++;
-            if (imc > 30){
-                quantidadeMulherObesa++;
+    private void conferirObesidadeEGenero(BancoDeSangue candidato, float imc) {
+        if (candidato.getSexo().equals("Feminino")) {
+            quantidadeMulheres++;
+            if (imc > 30) {
+                quantidadeMulheresObesas++;
             }
         } else {
-            quantidadeHomem++;
-            if (imc > 30){
-                quantidadeHomemObeso++;
+            quantidadeHomens++;
+            if (imc > 30) {
+                quantidadeHomensObesos++;
             }
         }
     }
 
+    private void calcularImcMedio() {
+        DecimalFormatSymbols simbolo = new DecimalFormatSymbols(Locale.getDefault());
+        simbolo.setDecimalSeparator('.');
 
+        DecimalFormat decimalFormat = new DecimalFormat("#.##", simbolo);
+
+        for (String faixaEtaria : faixasEtarias) {
+            float imcMedioValor = Float.parseFloat(decimalFormat.format(
+                    quantidadeImcPorIdade.get(faixaEtaria) / quantidadePorIdade.get(faixaEtaria)));
+            imcMedio.put(faixaEtaria, imcMedioValor);
+        }
+
+        percentualHomens = Float.parseFloat(decimalFormat.format(
+                (quantidadeHomensObesos / (float) quantidadeHomens) * 100));
+
+        percentualMulheres = Float.parseFloat(decimalFormat.format(
+                (quantidadeMulheresObesas / (float) quantidadeMulheres) * 100));
+    }
 }
