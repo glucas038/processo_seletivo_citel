@@ -19,12 +19,13 @@ import java.time.LocalDate;
 public class BancoDeSangue {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotEmpty
     private String nome;
     @Column(unique = true, nullable = false)
-    @CPF
+    @NotEmpty
+    @CPF(message = "CPF inválido")
     private String cpf;
     @NotEmpty
     private String rg;
@@ -63,9 +64,11 @@ public class BancoDeSangue {
     @NotEmpty
     private String tipo_sanguineo;
 
-    public BancoDeSangue(String cpf, String rg, String data_nasc, String sexo, String mae, String pai, String email,
-                         String cep, String endereco, int numero, String bairro, String cidade, String estado,
-                         String telefone_fixo, String celular, float altura, float peso, String tipo_sanguineo) {
+    public BancoDeSangue(String nome, String cpf, String rg, String data_nasc, String sexo, String mae, String pai,
+                         String email, String cep, String endereco, int numero, String bairro, String cidade,
+                         String estado, String telefone_fixo, String celular, float altura,
+                         float peso, String tipo_sanguineo) {
+        this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
         this.data_nasc = data_nasc;
@@ -85,5 +88,4 @@ public class BancoDeSangue {
         this.peso = peso;
         this.tipo_sanguineo = tipo_sanguineo;
     }
-
 }
