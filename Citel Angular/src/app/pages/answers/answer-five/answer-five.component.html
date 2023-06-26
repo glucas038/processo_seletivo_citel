@@ -1,0 +1,24 @@
+<div class="table-responsive p-3" *ngIf="resultAnswer.size > 0">
+  <h1 class="text-center">Pergunta 5</h1>
+  <app-back-button></app-back-button>
+  
+  <h5>{{ answerFive }}</h5>
+  
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Tipo Sanguineo</th>
+        <th scope="col">Quantidade possiveis doadores</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <ng-container *ngFor="let result of resultAnswer.entries()">
+        <tr>
+          <th scope="row">{{ result[0] }}</th>
+          <td>{{ result[1] }} pessoas</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+</div>

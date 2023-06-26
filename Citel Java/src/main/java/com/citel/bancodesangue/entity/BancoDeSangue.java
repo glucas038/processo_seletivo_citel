@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
@@ -17,15 +19,18 @@ import org.hibernate.validator.constraints.br.CPF;
 public class BancoDeSangue {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true, nullable = false)
-    @CPF
+    @NotEmpty
+    private String nome;
+    @Column(unique = true, nullable = false, name = "cpf")
+    @NotEmpty
+    @CPF(message = "CPF inválido")
     private String cpf;
     @NotEmpty
     private String rg;
     @NotEmpty
-    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
     private String data_nasc;
     @NotEmpty
     private String sexo;
@@ -34,7 +39,7 @@ public class BancoDeSangue {
     @NotEmpty
     private String pai;
     @NotEmpty
-    @Email
+    //@Email
     private String email;
     @NotEmpty
     private String cep;
@@ -59,9 +64,11 @@ public class BancoDeSangue {
     @NotEmpty
     private String tipo_sanguineo;
 
-    public BancoDeSangue(String cpf, String rg, String data_nasc, String sexo, String mae, String pai, String email,
-                         String cep, String endereco, int numero, String bairro, String cidade, String estado,
-                         String telefone_fixo, String celular, float altura, float peso, String tipo_sanguineo) {
+    public BancoDeSangue(String nome, String cpf, String rg, String data_nasc, String sexo, String mae, String pai,
+                         String email, String cep, String endereco, int numero, String bairro, String cidade,
+                         String estado, String telefone_fixo, String celular, float altura,
+                         float peso, String tipo_sanguineo) {
+        this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
         this.data_nasc = data_nasc;
@@ -81,5 +88,4 @@ public class BancoDeSangue {
         this.peso = peso;
         this.tipo_sanguineo = tipo_sanguineo;
     }
-
 }

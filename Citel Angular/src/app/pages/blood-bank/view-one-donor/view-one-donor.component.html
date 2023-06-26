@@ -1,0 +1,134 @@
+<div class="container-fluid">
+    <h2 class="text-center">{{donorForm.value.nome}}</h2>
+    <hr>
+  
+    <form [formGroup]="donorForm">
+  
+      <h5>Dados pessoais</h5>
+      <div class="row">
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="cpf" class="form-label">CPF</label>
+            <input id="cpf" type="text" class="form-control" formControlName="cpf" readonly>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="rg" class="form-label">RG</label>
+            <input id="rg" type="text" class="form-control" formControlName="rg" readonly>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="data_nasc" class="form-label">Data de nascimento</label>
+            <input id="data_nasc" type="text" class="form-control" formControlName="data_nasc" readonly>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="altura" class="form-label">Altura (em metros)</label>
+            <input id="altura" type="text" class="form-control" formControlName="altura" readonly>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="peso" class="form-label">Peso (em Kg)</label>
+            <input id="peso" type="text" class="form-control" formControlName="peso" readonly>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="tipo_sanguineo" class="form-label">Tipo Sanguíneo</label>
+            <input id="tipo_sanguineo" type="text" class="form-control" formControlName="tipo_sanguineo" readonly>
+          </div>
+        </div>
+      </div>
+  
+      <hr>
+      <h5>Contatos</h5>
+      <div class="row">
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input id="email" type="text" class="form-control" formControlName="email" readonly>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="telefone_fixo" class="form-label">Telefone</label>
+            <input id="telefone_fixo" type="text" class="form-control" formControlName="telefone_fixo" readonly>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="celular" class="form-label">Celular</label>
+            <input id="celular" type="text" class="form-control" formControlName="celular" readonly>
+          </div>
+        </div>
+      </div>
+  
+      <hr>
+      <h5>Endereço</h5>
+      <div class="row">
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="cep" class="form-label">CEP</label>
+            <input id="cep" type="text" class="form-control" formControlName="cep" readonly>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="endereco" class="form-label">Endereço</label>
+            <input id="endereco" type="text" class="form-control" formControlName="endereco" readonly>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="numero" class="form-label">Número</label>
+            <input id="numero" type="text" class="form-control" formControlName="numero" readonly>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="bairro" class="form-label">Bairro</label>
+            <input id="bairro" type="text" class="form-control" formControlName="bairro" readonly>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="cidade" class="form-label">Cidade</label>
+            <input id="cidade" type="text" class="form-control" formControlName="cidade" readonly>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="estado" class="form-label">Estado</label>
+            <input id="estado" type="text" class="form-control" formControlName="estado" readonly>
+          </div>
+        </div>
+      </div>
+  
+      <hr>
+      <h5>Filiação</h5>
+      <div class="row">
+        <div class="col-6">
+          <div class="mb-3">
+            <label for="mae" class="form-label">Mãe</label>
+            <input id="mae" type="text" class="form-control" formControlName="mae" readonly>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <label for="pai" class="form-label">Pai</label>
+            <input id="pai" type="text" class="form-control" formControlName="pai" readonly>
+          </div>
+        </div>
+      </div>
+  
+    </form>
+  </div>
+  
