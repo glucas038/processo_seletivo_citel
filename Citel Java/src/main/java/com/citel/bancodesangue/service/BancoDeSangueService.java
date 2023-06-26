@@ -1,6 +1,5 @@
 package com.citel.bancodesangue.service;
 
-import com.citel.bancodesangue.dtos.BancoDeSangueResponseDTO;
 import com.citel.bancodesangue.entity.BancoDeSangue;
 import com.citel.bancodesangue.exception.CandidatoNaoEncontrado;
 import com.citel.bancodesangue.exception.DadosIncorretos;
@@ -9,7 +8,6 @@ import com.citel.bancodesangue.logic.Respostas;
 import com.citel.bancodesangue.repository.BancoDeSangueRepository;
 import com.citel.bancodesangue.validator.ValidarCliente;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +29,7 @@ public class BancoDeSangueService {
     }
 
     public Optional<List<BancoDeSangue>> retornarTodosClientes() {
+
         return Optional.of(bancoDeSangueRepository.findAll());
     }
 
@@ -61,12 +60,13 @@ public class BancoDeSangueService {
         return respostas.quantidadeDoadoresPorTipoSanguineo(retornarTodosClientes().get());
     }
 
-    public Optional<BancoDeSangue> retornarTodosDados(Long id) throws CandidatoNaoEncontrado {
+    public Optional<BancoDeSangue> retornarTodosDados(String cpf) throws CandidatoNaoEncontrado {
 
-        if (!bancoDeSangueRepository.existsById(id)){
+        if (!bancoDeSangueRepository.existsByCpf(cpf)){
             throw new CandidatoNaoEncontrado();
         }
 
-        return bancoDeSangueRepository.findById(id);
+        return bancoDeSangueRepository.findOneByCpf(cpf);
+
     }
 }

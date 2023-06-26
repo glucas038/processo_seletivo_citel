@@ -23,7 +23,7 @@ public class BancoDeSangue {
     private Long id;
     @NotEmpty
     private String nome;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, name = "cpf")
     @NotEmpty
     @CPF(message = "CPF inválido")
     private String cpf;

@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <h1 class="text-center mt-4">Candidatos cadastrados</h1>
+
+  <div class="container text-center mt-4">
+    <div class="row">
+      <div class="col">
+        <button type="button" class="btn btn-primary" routerLink="pergunta-1" routerLinkActive="active">Pergunta 1</button>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-primary" routerLink="pergunta-2" routerLinkActive="active">Pergunta 2</button>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-primary" routerLink="pergunta-3" routerLinkActive="active">Pergunta 3</button>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-primary" routerLink="pergunta-4" routerLinkActive="active">Pergunta 4</button>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-primary" routerLink="pergunta-5" routerLinkActive="active">Pergunta 5</button>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="table-responsive mt-4">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">CPF</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Email</th>
+          <th scope="col">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let donor of allDonors">
+          <td>{{ donor.cpf }}</td>
+          <td>{{ donor.nome }}</td>
+          <td>{{ donor.email }}</td>
+          <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary btn-sm" routerLink="ver/{{donor.cpf}}" routerLinkActive="active">
+                Ver completo
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

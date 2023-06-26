@@ -26,10 +26,10 @@ public class BancoDeSangueController {
     @Autowired
     private BancoDeSangueService bancoDeSangueService;
 
-    @GetMapping("{id}")
-    public ResponseEntity<BancoDeSangueResponseDTOCompleto> retornarTodosOsDados(@PathVariable Long id) {
+    @GetMapping("{cpf}")
+    public ResponseEntity<BancoDeSangueResponseDTOCompleto> retornarTodosOsDados(@PathVariable String cpf) {
         try {
-            return bancoDeSangueService.retornarTodosDados(id).map(bancoDeSangue ->
+            return bancoDeSangueService.retornarTodosDados(cpf).map(bancoDeSangue ->
                     ResponseEntity.ok(BancoDeSangueResponseDTOCompleto.converterParaDTO(bancoDeSangue)))
                     .orElseGet(() -> ResponseEntity.notFound().build());
         } catch (CandidatoNaoEncontrado e) {

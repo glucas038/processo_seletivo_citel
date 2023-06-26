@@ -1,0 +1,23 @@
+<div class="table-responsive m-4">
+  <h1 class="text-center">Pergunta 1</h1>
+  <app-back-button></app-back-button>
+
+  <h5>{{ answerOne }}</h5>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Sigla</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Quantidade de candidatos</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <tr *ngFor="let entry of resultAnswer | keyvalue">
+        <th scope="row">{{ entry.key }}</th>
+        <td>{{ converterSiglaEmEstados(entry.key) }}</td>
+        <td>{{ entry.value }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

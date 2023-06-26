@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @NoArgsConstructor
@@ -15,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class BancoDeSangueResponseDTO {
 
-    private String name;
+    private String nome;
     private String cpf;
     private String email;
 
@@ -28,6 +30,9 @@ public class BancoDeSangueResponseDTO {
         for (BancoDeSangue candidatos: listCandidatos){
             listDTO.add(new BancoDeSangueResponseDTO(candidatos.getNome(), candidatos.getCpf(),candidatos.getEmail()));
         }
+
+        Collections.sort(listDTO, Comparator.comparing(BancoDeSangueResponseDTO::getNome));
+
         return listDTO;
     }
 }
